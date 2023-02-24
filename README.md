@@ -10,5 +10,7 @@ Create a travel planning website that helps users plan and book their trips. The
 Create a teamwork platform that has both the functionalities of google calander and Trello, on which you can plan events, assign tasks, and schedule meetings according to the available time of each other's calendar. 
 
 
-
-
+## APIs:
+* Yelp Fusion (https://docs.developer.yelp.com/docs/fusion-intro)
+* Kayak (https://www.kayak.com/affiliate/help/widget)
+* Expedia (need to become partner)
