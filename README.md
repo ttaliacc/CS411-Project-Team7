@@ -12,5 +12,6 @@ Create a teamwork platform that has both the functionalities of google calander 
 
 ## APIs:
 * Yelp Fusion (https://docs.developer.yelp.com/docs/fusion-intro)
+  * Example sippet: https://github.com/Yelp/yelp-fusion#code-samples
 * Kayak (https://www.kayak.com/affiliate/help/widget)
 * Expedia (need to become partner)
