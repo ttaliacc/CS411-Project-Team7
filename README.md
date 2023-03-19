@@ -22,7 +22,25 @@ Create a movie/tv show generator that helps user find movies given keyword/descr
 * https://developers.themoviedb.org/3/getting-started/introduction
 * https://www.utelly.com/media-and-entertainment-solutions/use-cases/developers?gclid=Cj0KCQiA3eGfBhCeARIsACpJNU8BRJOOmJBRx79TesDNyi-EyUtALV4_QwIFpj2wcymU0IoCbG9puoMaAtxsEALw_wcB
 
-### User Story
+## Tool we use
+
+### FrontEnd(Talia)
+* React
+* CSS
+* JavaScript
+
+### BackEnd(Tai)
+* Django/Python
+* Json
+
+### DataBase(Jon/Yufeng)
+* SQL
+* Django
+
+### UserInterface(Yufeng)
+* Canva
+
+## User Story
 
 (Talia)General story
  * Talk about the intuition of the website
