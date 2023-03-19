@@ -24,37 +24,37 @@ Create a movie/tv show generator that helps user find movies given keyword/descr
 
 ### User Story
 
-General story
+(Talia)General story
  * Talk about the intuition of the website
 
-User sign up page
+(Yufeng)User sign up page
  * user infromation
  * Build profile
 
-Log In 
+(Yufeng)Log In 
  * Login page, user profile page 
  * liked/watchlater movies
  * (For example, if a story requires that a user is logged in, you should refer the reader to the ‘user log in’ story rather than explaining in detail how the user is authenticated)
 
-Search bar: type in keywords
+(Tai)Search bar: type in keywords
  * random words/serach function 
  * recommended movies 
 
-Recommended Movies
+(Tai)Recommended Movies
  * occured after searching
  * link to movie descriptionscan
  * added to watchlater
  * like function for each movie
 
-Filtering
+(Jon)Filtering
  * can be either for movie searching or filtering recommended movies
  * filtering by movie rating, language, tv/movie, release date, length
 
-Like function/Watch Later
+(Jon)Like function/Watch Later
  * a library store liked movies or watch later movies
  * each user has their own library
 
-Rating
+(Talia)Rating
  * rate the recommended movie after wathching 
  * comment function 
 
