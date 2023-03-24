@@ -40,7 +40,7 @@ Create a movie/tv show generator that helps user find movies given keyword/descr
 * Django
 
 ### UserInterface(Yufeng)
-* Canva
+* Canva/Figma
 
 ## User Story
 
