@@ -24,7 +24,7 @@ Create a movie/tv show generator that helps user find movies given keyword/descr
 ### UserInterface(Yufeng)
 * Canva/Figma
 
-## User Story
+## User Story (see the UserStory folder)
 
 ### (Talia)General story
  * Talk about the intuition of the website
