@@ -18,7 +18,7 @@ Create a movie/tv show generator that helps user find movies given keyword/descr
 * Json
 
 ### DataBase(Jon/Yufeng)
-* MySQL
+* SQLite
 * Django
 
 ### UserInterface(Yufeng)
