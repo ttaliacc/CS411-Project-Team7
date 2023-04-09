@@ -5,7 +5,6 @@ from .views import (
         MovieDetails
 	)
 urlpatterns = [
-    path('', views.index, name='index'),
-    path("search/", SearchResult.as_view()),
-    path('movie/<int:movie_id>/', MovieDetails.as_view()),
+    path("search/<query>", SearchResult.as_view(), name='search'),
+    path('details/<int:movie_id>/', MovieDetails.as_view(), name='movie_details'),
 ]
