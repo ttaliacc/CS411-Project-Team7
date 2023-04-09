@@ -13,6 +13,13 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 
+#API KEYS
+TMDB_API_KEY = '3016e6c23565d0fd1b4b0e0953da86d2'
+UTELLY_API_URL = url = "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup"
+X_RAPIDAPI_KEY = "45a4c67909msh27c81fcbd07a4fap1a1b86jsn62fd26476f1a"
+X_RAPIDAPI_HOST = "utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com"
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
