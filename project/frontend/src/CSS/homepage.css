@@ -2,7 +2,7 @@
 @import url("https://unpkg.com/css.gg@2.0.0/icons/css/profile.css");
 
 * {
-  background: url("./images/bg.png") repeat center center fixed;
+  background: url("./image/bg.png") repeat center center fixed;
   box-sizing: border-box;
 }
 

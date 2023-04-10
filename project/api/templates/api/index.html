@@ -1,59 +1,77 @@
 {% extends "api/base.html" %}
 
 {% block title %}
-    Home
+Home
 {% endblock %}
 
 {% block main %}
-    <form action="/search/" method="get" class="row g-3">
-        <select class="form-select" name="type" class="mb-3">
+<div class="nav">
+    <ul>
+        <li>
+            <a href="default.asp">Home</a>
+        </li>
+        <li>
+            <a href="contact.asp">Contact</a>
+        </li>
+        <li>
+            <a href="about.asp">About</a>
+        </li>
+        <li style="float: right">
+            <a href="about.asp">
+                <i class="gg-profile"></i>
+            </a>
+        </li>
+        <li style="float: right">
+            <a href="about.asp">Login</a>
+        </li>
+        <li style="float: right">
+            <a href="about.asp">Sign In</a>
+        </li>
+    </ul>
+</div>
+
+<div class="title">
+    <h1 id="movie">Movie</h1>
+    <h1 id="generator">Generator</h1>
+</div>
+<div class="functionBar">
+    <button>Filter</button>
+    <button>Random Words</button>
+</div>
+<div class="searchBar">
+    <form action="/search/" method="get" class="search">
+        <!-- <select class="form-select" name="type">
             <option value="movie">Movie</option>
             <option value="tv">TV Show</option>
-        </select>
-
-        <div class="col-auto">
-            <input type="text" class="form-control" placeholder="Search Query" name="q">
-        </div>
-
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary">Search</button>
-        </div>
+        </select> -->
+        <input type="text" class="form-control" placeholder="Find your movies here..." name="q">
+        <button type="submit" class="btn btn-primary w-100">search</button>
     </form>
-    <hr>
-    <h2>Trending</h2>
-    <div class="input-group mb-3">
-        <select class="form-select" id="media_type">
-          <option selected>All Trending Media Types</option>
-          <option value="movie">All Trending Movies</option>
-          <option value="tv">All Trending TV Shows</option>
-          <option value="person">All Trending Persons</option>
-        </select>
-    </div>
-    <div id="trendings" class="row">
+</div>
 
-    </div>
+</div>
 
-    <script>
-        fetchTrendingResults("all", "week")
+<script>
+    fetchTrendingResults("all", "week")
 
-        var mediaType = document.getElementById("media_type")
-        mediaType.addEventListener("change", function(event) {
-            fetchTrendingResults(mediaType.options[mediaType.selectedIndex].value, "day")
+    var mediaType = document.getElementById("media_type")
+    mediaType.addEventListener("change", function (event) {
+        fetchTrendingResults(mediaType.options[mediaType.selectedIndex].value, "day")
+    })
+
+    function fetchTrendingResults(media_type, time_window) {
+        var trendingDiv = document.getElementById("trendings")
+        trendingDiv.innerHTML = ""
+
+        fetch(`/api/trendings?media_type=${media_type}&time_window=${time_window}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
         })
-
-        function fetchTrendingResults(media_type, time_window) {
-            var trendingDiv = document.getElementById("trendings")
-            trendingDiv.innerHTML = ""
-
-            fetch(`/api/trendings?media_type=${media_type}&time_window=${time_window}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
             .then(res => res.json())
             .then(data => {
-                for (let i=0; i<data.results.length; i++) {
+                for (let i = 0; i < data.results.length; i++) {
                     var mainDiv = document.createElement("div");
                     mainDiv.setAttribute("class", "card");
                     mainDiv.setAttribute("style", "width: 18rem;");
@@ -85,7 +103,7 @@
                     document.getElementById("trendings").appendChild(mainDiv);
                 }
             })
-        }
+    }
 
-    </script>
+</script>
 {% endblock %}
