@@ -23,12 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-91l=uuuc=tmmi#%&a6+)gd&(&+y$4fcewb)p3i^4_mvze%3l0m'
 
-#API KEYS
-TMDB_API_KEY = '3016e6c23565d0fd1b4b0e0953da86d2'
-UTELLY_API_URL = url = "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup"
-X_RAPIDAPI_KEY = "45a4c67909msh27c81fcbd07a4fap1a1b86jsn62fd26476f1a"
-X_RAPIDAPI_HOST = "utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com"
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -125,9 +119,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'frontend/build/static')
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'frontend/build/static')
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

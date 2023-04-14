@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../CSS/homepage.css";
+import NavBar from "./navbar";
 
 <link
   rel="stylesheet"
@@ -11,6 +12,9 @@ class Homepage extends Component {
   render() {
     return (
       <div>
+        <div>
+          <NavBar />
+        </div>
         <div className="title">
           <h1 id="movie">Movie</h1>
           <h1 id="generator">Generator</h1>
@@ -20,7 +24,7 @@ class Homepage extends Component {
           <button>Random Words</button>
         </div>
         <div className="searchBar">
-          <form class="search" action="action_page.php">
+          <form class="search" action="#">
             <input
               type="text"
               placeholder="Find your movies here..."
