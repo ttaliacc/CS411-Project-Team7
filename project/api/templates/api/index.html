@@ -1,32 +1,56 @@
 {% extends "api/base.html" %}
 
 {% block title %}
-    Home
+Home
 {% endblock %}
 
 {% block main %}
-    <form action="/search/" method="get" class="row g-3">
-        <select class="form-select" name="type" class="mb-3">
-            <option value="movie">Movie</option>
-            <option value="tv">TV Show</option>
-        </select>
+<div class="nav">
+    <ul>
+        <li>
+            <a href="default.asp">Home</a>
+        </li>
+        <li>
+            <a href="contact.asp">Contact</a>
+        </li>
+        <li>
+            <a href="about.asp">About</a>
+        </li>
+        <li style="float: right">
+            <a href="about.asp">
+                <i class="gg-profile"></i>
+            </a>
+        </li>
+        <li style="float: right">
+            <a href="about.asp">Login</a>
+        </li>
+        <li style="float: right">
+            <a href="about.asp">Sign In</a>
+        </li>
+    </ul>
+</div>
 
-        <div class="col-auto">
-            <input type="text" class="form-control" placeholder="Search Query" name="q">
-        </div>
-
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary">Search</button>
-        </div>
+<div class="title">
+    <h1 id="movie">Movie</h1>
+    <h1 id="generator">Generator</h1>
+</div>
+<div class="functionBar">
+    <button>Filter</button>
+    <button>Random Words</button>
+</div>
+<div class="searchBar">
+    <form action="/search/" method="get" class="search">
+        <input type="text" class="form-control" placeholder="Find your movies here..." name="q">
+        <button type="submit" class="w-100">search</button>
     </form>
     <hr>
     <h2>Trending</h2>
     <div class="input-group mb-3">
         <select class="form-select" id="media_type">
-          <option selected>All Trending Media Types</option>
-          <option value="movie">All Trending Movies</option>
-          <option value="tv">All Trending TV Shows</option>
-          <option value="person">All Trending Persons</option>
+            <option selected>All Trending Media Types</option>
+            <option value="movie">All Trending Movies</option>
+            <option value="tv">All Trending TV Shows</option>
+            <option value="person">All Trending Persons</option>
         </select>
     </div>
     <div id="trendings" class="row">
@@ -37,7 +61,7 @@
         fetchTrendingResults("all", "week")
 
         var mediaType = document.getElementById("media_type")
-        mediaType.addEventListener("change", function(event) {
+        mediaType.addEventListener("change", function (event) {
             fetchTrendingResults(mediaType.options[mediaType.selectedIndex].value, "day")
         })
 
@@ -51,41 +75,41 @@
                     "Content-Type": "application/json"
                 }
             })
-            .then(res => res.json())
-            .then(data => {
-                for (let i=0; i<data.results.length; i++) {
-                    var mainDiv = document.createElement("div");
-                    mainDiv.setAttribute("class", "card");
-                    mainDiv.setAttribute("style", "width: 18rem;");
-                    var img = document.createElement("img");
-                    img.setAttribute("src", "https://image.tmdb.org/t/p/w200" + data.results[i].poster_path);
-                    img.setAttribute("class", "card-img-top");
-                    img.setAttribute("alt", "...");
-                    var body = document.createElement("div");
-                    body.setAttribute("class", "card-body");
-                    var title = document.createElement("h5");
-                    title.setAttribute("class", "card-title");
-                    if (data.results[i].name) {
-                        title.innerHTML = data.results[i].name;
-                    } else {
-                        title.innerHTML = data.results[i].title;
+                .then(res => res.json())
+                .then(data => {
+                    for (let i = 0; i < data.results.length; i++) {
+                        var mainDiv = document.createElement("div");
+                        mainDiv.setAttribute("class", "card");
+                        mainDiv.setAttribute("style", "width: 18rem;");
+                        var img = document.createElement("img");
+                        img.setAttribute("src", "https://image.tmdb.org/t/p/w200" + data.results[i].poster_path);
+                        img.setAttribute("class", "card-img-top");
+                        img.setAttribute("alt", "...");
+                        var body = document.createElement("div");
+                        body.setAttribute("class", "card-body");
+                        var title = document.createElement("h5");
+                        title.setAttribute("class", "card-title");
+                        if (data.results[i].name) {
+                            title.innerHTML = data.results[i].name;
+                        } else {
+                            title.innerHTML = data.results[i].title;
+                        }
+                        var text = document.createElement("p");
+                        text.setAttribute("class", "card-text");
+                        text.innerHTML = data.results[i].overview;
+                        var link = document.createElement("a");
+                        link.setAttribute("href", "/" + data.results[i].media_type + "/" + data.results[i].id + "/");
+                        link.setAttribute("class", "btn btn-primary");
+                        link.innerHTML = "View Details";
+                        body.appendChild(title);
+                        body.appendChild(text);
+                        body.appendChild(link);
+                        mainDiv.appendChild(img);
+                        mainDiv.appendChild(body);
+                        document.getElementById("trendings").appendChild(mainDiv);
                     }
-                    var text = document.createElement("p");
-                    text.setAttribute("class", "card-text");
-                    text.innerHTML = data.results[i].overview;
-                    var link = document.createElement("a");
-                    link.setAttribute("href", "/" + data.results[i].media_type + "/" + data.results[i].id + "/");
-                    link.setAttribute("class", "btn btn-primary");
-                    link.innerHTML = "View Details";
-                    body.appendChild(title);
-                    body.appendChild(text);
-                    body.appendChild(link);
-                    mainDiv.appendChild(img);
-                    mainDiv.appendChild(body);
-                    document.getElementById("trendings").appendChild(mainDiv);
-                }
-            })
+                })
         }
 
     </script>
-{% endblock %}
+    {% endblock %}
