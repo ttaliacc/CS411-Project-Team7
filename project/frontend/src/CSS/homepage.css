@@ -1,41 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik+Dirt&family=Tilt+Neon&display=swap");
-@import url("https://unpkg.com/css.gg@2.0.0/icons/css/profile.css");
 
 * {
-  background: url("./image/bg.png") repeat center center fixed;
+  background: url("./images/bg.png") repeat center center fixed;
   box-sizing: border-box;
-}
-
-ul {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-  background-color: #111;
-}
-
-.gg-profile {
-  float: right;
 }
 
 .title {
