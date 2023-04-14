@@ -5,12 +5,45 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/search/" method="get" class="row g-3">
-        <select class="form-select" name="type" class="mb-3">
-            <option value="movie">Movie</option>
-            <option value="tv">TV Show</option>
-        </select>
+<div class="nav">
+    <ul>
+        <li>
+            <a href="default.asp">Home</a>
+        </li>
+        <li>
+            <a href="contact.asp">Contact</a>
+        </li>
+        <li>
+            <a href="about.asp">About</a>
+        </li>
+        <li style="float: right">
+            <a href="about.asp">
+                <i class="gg-profile"></i>
+            </a>
+        </li>
+        <li style="float: right">
+            <a href="about.asp">Login</a>
+        </li>
+        <li style="float: right">
+            <a href="about.asp">Sign In</a>
+        </li>
+    </ul>
+</div>
 
+<div class="title">
+    <h1 id="movie">Movie</h1>
+    <h1 id="generator">Generator</h1>
+</div>
+<div class="functionBar">
+    <button>Filter</button>
+    <button>Random Words</button>
+</div>
+<div class="searchBar">
+    <form action="/search/" method="get" class="search">
+        <input type="text" class="form-control" placeholder="Find your movies here..." name="q">
+        <button type="submit" class="w-100">search</button>
+    </form>
+</div>
         <div class="col-auto">
             <input type="text" class="form-control" placeholder="Search Query" name="q">
         </div>
