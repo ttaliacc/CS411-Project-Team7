@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block main %}
-    <div class="row">
-        {% for m in results %}
-            <div class="card" style="width: 18rem;">
-                <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}" class="card-img-top" alt="...">
-                <div class="card-body">
+    <div class="card-container">
+        {% for m in data.results %}
+        <div class="card">
+            <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}" class="card-img-left" alt="...">
+            <div class="card-body">
                 {% if not m.name %}
-                    <h5 class="card-title">{{ m.title }}</h5>
+                <h5 class="card-title">{{ m.title }}</h5>
                 {% else %}
-                    <h5 class="card-title">{{ m.name }}</h5>
+                <h5 class="card-title">{{ m.name }}</h5>
                 {% endif %}
                 <p class="card-text">{{ m.overview }}</p>
                 <h6>Streaming Information:</h6>
@@ -24,11 +24,11 @@
                 {% endfor %}
                 </ul>
                 {% else %}
-                    <p>No streaming information available</p>
+                <p>No streaming information available</p>
                 {% endif %}
                 <a href="/{{ type }}/{{ m.id }}/" class="btn btn-primary">View Details</a>
-                </div>
             </div>
+        </div>
         {% endfor %}
     </div>
 {% endblock %}
