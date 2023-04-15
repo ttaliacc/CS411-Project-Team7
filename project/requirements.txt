@@ -5,5 +5,5 @@
 #
 # On a Macintosh this should be python3 and pip3
 #
-Django==4.2
+Django==4.0.7
 django-allauth==0.54.0

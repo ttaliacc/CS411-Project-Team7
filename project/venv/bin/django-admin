@@ -1,4 +1,4 @@
-#!/Users/taikoeda/Desktop/CS411/login/CS411-Project-Team7/project/venv/bin/python3.11
+#!/Users/taikoeda/Desktop/CS411/CS411-Project-Team7/project/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
