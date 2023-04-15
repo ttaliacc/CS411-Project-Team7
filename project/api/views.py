@@ -6,7 +6,7 @@ from django.conf import settings
 def index(request):
     return render(request, 'api/index.html')
 
-def SearchResult(request):
+def get_search_result(request):
     # Get the search query from the 'q' URL parameter.
     query = request.GET.get('q')
 
@@ -30,7 +30,7 @@ def SearchResult(request):
 
     return render(request,'api/results.html', context)
  
-def MovieDetail(request, movie_id):
+def get_movie_detail(request, movie_id):
     # Call the TMDB API to get the details for a specific movie
     response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={settings.TMDB_API_KEY}')
     movie = response.json()
