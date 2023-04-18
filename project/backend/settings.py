@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',   
     'api.apps.ApiConfig', 
-    'login.apps.LoginConfig',
+    'user.apps.UserConfig',
 
     'django.contrib.sites',
     'allauth',
@@ -42,17 +42,20 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google', #Google login
 ]
 
-SITE_ID = 3
+SITE_ID = 4
 
-SOCIAL_ACCOUNT_PROVIDERS = {
+SOCIALACCOUNT_PROVIDERS = {
     'google': {
-        'SCOPE': [    
+        'SCOPE': [
             'profile',
-            'email',
+            'email'
         ],
-        "AUTH_PARAMS": {"access_type": "online"},
-    }    
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+    }
 }
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -95,13 +98,13 @@ DATABASES = {
     }
 }
 
-AUTHENTICATION_BACKENDS = [
+AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
 
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
-]
+)
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
