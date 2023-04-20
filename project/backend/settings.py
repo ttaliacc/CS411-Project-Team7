@@ -55,7 +55,8 @@ SOCIALACCOUNT_PROVIDERS = {
         },
     }
 }
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'None'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
