@@ -54,11 +54,7 @@ def SearchResult(request):
             ## INSERT INTO Movies
             Movie.objects.get_or_create(id = id,defaults={"poster_path":posterpath, "backdrop_path":backdroppath, "adult" : adult,"release_date":release, "original_language":  oglanguage, "original_title" : ogtitle, "overview":overview, "title":title, "video":video}) 
             d2 = Movie.objects.get(id=id)
-            print(d2.backdrop_path)
-            print(movie['backdrop_path'])
-            print(d2.poster_path)
-            print(movie['poster_path'])
-            print("\n")
+            
             ## Assigning each movies its genres 
             for genre in genres:
                 d2.genres.add(genre)
