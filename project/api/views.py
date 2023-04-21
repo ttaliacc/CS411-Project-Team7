@@ -9,6 +9,12 @@ from django.core.serializers import serialize
 def index(request):
     return render(request, 'api/index.html')
 
+def signIn(request):
+    return render(request, 'api/signIn.html')
+
+def about(request):
+    return render(request, 'api/about.html')
+
 
 # Pre-Load the movie genres from API to database
 def loadGenres():
