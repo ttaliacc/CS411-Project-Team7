@@ -1,5 +1,5 @@
 from django.shortcuts import render
-import requests
+import requests, datetime
 from django.http import HttpResponse
 from django.conf import settings
 from .models import Movie,Genre, StreamInfo
@@ -52,8 +52,12 @@ def SearchResult(request):
             backdroppath =movie['backdrop_path']
 
             ## INSERT INTO Movies
+            if(len(release) != 10) :
+                release = None
+            
             Movie.objects.get_or_create(id = id,defaults={"poster_path":posterpath, "backdrop_path":backdroppath, "adult" : adult,"release_date":release, "original_language":  oglanguage, "original_title" : ogtitle, "overview":overview, "title":title, "video":video}) 
             d2 = Movie.objects.get(id=id)
+
             
             ## Assigning each movies its genres 
             for genre in genres:
