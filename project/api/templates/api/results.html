@@ -1,6 +1,5 @@
 {% extends "api/base.html" %}
 
-
 {% block title %}
     Results
 {% endblock %}
@@ -18,10 +17,10 @@
             {% endif %}
             <p class="card-text">{{ m.overview }}</p>
             <h5 class="card-title">Streaming Information:</h5>
-            {% if m.stream_info.locations|length > 0 %}
+            {% if m.id in streaming %}
             <ul>
-                {% for k in m.stream_info.locations %}
-                <ul class="stream"><a href="{{ k.url }}"> {{ k.display_name }} </a></ul>
+                {% for k, v in streaming.items %}
+                <ul class="stream"><a href="{{ v.url }}"> {{ v.display_name }} </a></ul>
                 {% endfor %}
             </ul>
             {% else %}
