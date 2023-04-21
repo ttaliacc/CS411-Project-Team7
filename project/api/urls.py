@@ -6,4 +6,6 @@ urlpatterns = [
     # path("search/", , name="search"),
     path('search/', views.get_search_result, name='search_results'),
     path('details/<int:movie_id>', views.get_movie_detail, name='movie_details'),
+    path("signIn/", views.signIn, name="signIn"),
+    path("about/", views.about, name="about"),
 ]

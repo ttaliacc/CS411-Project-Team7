@@ -25,6 +25,12 @@ def get_recommended(movie_id):
 # def get_movie_info(movie_id):
 #     return requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={settings.TMDB_API_KEY}').json()
 
+def signIn(request):
+    return render(request, 'api/signIn.html')
+
+def about(request):
+    return render(request, 'api/about.html')
+
 def get_search_result(request):
     # Get the search query from the 'q' URL parameter.
     query = request.GET.get('q')
