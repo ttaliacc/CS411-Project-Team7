@@ -1,5 +1,5 @@
 from django.db import models
-
+from user.models import User
 # Create your models here.
 
 class Genre(models.Model):
@@ -44,3 +44,11 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class FavoritedMovie(models.Model):
+        movie = models.ForeignKey('Movie', on_delete=models.RESTRICT)
+        user = models.ForeignKey('User', on_delete=models.RESTRICT)
+        created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.movie.title
