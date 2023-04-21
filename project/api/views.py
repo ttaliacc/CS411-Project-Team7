@@ -7,6 +7,23 @@ from django.conf import settings
 def index(request):
     return render(request, 'api/index.html')
 
+def signIn(request):
+    return render(request, 'api/signIn.html')
+
+def about(request):
+    return render(request, 'api/about.html')
+
+
+# Pre-Load the movie genres from API to database
+def loadGenres():
+    genres = requests.get('https://api.themoviedb.org/3/genre/movie/list',{'api_key' : settings.TMDB_API_KEY})
+    genresj = genres.json()
+    genresjl = genresj['genres']
+    for genre in genresjl:
+        id = genre['id']
+        name = genre['name']
+        Genre.objects.get_or_create(gid=id,name=name)
+
 def SearchResult(request):
     # Get the search query from the 'q' URL parameter.
     query = request.GET.get('q')
