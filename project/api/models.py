@@ -53,3 +53,11 @@ class FavoritedMovie(models.Model):
 
     def __str__(self):
         return self.movie.title
+    
+class FavoriteMovie(models.Model):
+    movie = models.ForeignKey('Movie', on_delete=models.RESTRICT)
+    user = models.ForeignKey('user.User', on_delete=models.RESTRICT)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.movie.title
