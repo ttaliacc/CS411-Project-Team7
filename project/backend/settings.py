@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google', #Google login
 ]
 
-SITE_ID = 2
+SITE_ID = 4
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -69,7 +69,8 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_USER_MODEL_USERNAME_FIELD = 'None'
+
+# AUTH_USER_MODEL = 'user.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
