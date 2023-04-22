@@ -2,6 +2,17 @@ from django.db import models
 
 # Create your models here.
 
+class Genre(models.Model):
+    gid = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=255)
+
+class StreamInfo(models.Model):
+    display_name = models.CharField(max_length=255, null=True,blank=True)
+    sid = models.CharField(max_length=255, default=0,null=True)
+    name = models.CharField(max_length=255,null=True,blank=True)
+    icon = models.CharField(max_length=255,null=True,blank=True)
+    url = models.CharField(max_length=255, null=True, blank=True)
+
 
 class Movie(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -25,6 +36,11 @@ class Movie(models.Model):
     video = models.BooleanField(default=False)
     vote_average = models.FloatField(null=True, blank=True)
     vote_count = models.IntegerField(null=True, blank=True)
+    rating = models.FloatField(default=0.0)
+    ratingcount = models.IntegerField(default=0)
+    likes= models.IntegerField(default=0)
+    genres = models.ManyToManyField(Genre)
+    streaminfo = models.ManyToManyField(StreamInfo)
 
     def __str__(self):
         return self.title
