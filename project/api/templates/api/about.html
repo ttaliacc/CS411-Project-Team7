@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>about</title>
+
+    <style>
+        body {
+            background: url("https://www.timemachine.eu/wp-content/uploads/2022/07/pexels-jakub-novacek-924824.jpg") repeat center center fixed;
+            box-sizing: border-box;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        .nav {
+            width: 100%;
+        }
+
+        .nav ul {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #996e00;
+        }
+
+        .nav li {
+            float: left;
+        }
+
+        .nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        /* Change the link color to #111 (black) on hover */
+        .nav li a:hover {
+            background-color: #111;
+        }
+
+        .gg-profile {
+            float: right;
+        }
+    </style>
+
+</head>
+    <div>
+        <div class="nav">
+            <ul>
+                <li>
+                    <a href="{% url 'index' %}">Home</a>
+                </li>
+                <li>
+                    <a href="{% url 'about' %}">About</a>
+                </li>
+                <li style="float: right">
+                    <a href="about.asp">
+                        <i class="gg-profile"></i>
+                    </a>
+                </li>
+                <li style="float: right">
+                    <a href="{% url 'signIn' %}">Sign In</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+<body>
+    
+</body>
+</html>

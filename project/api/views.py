@@ -16,6 +16,12 @@ tmdb.API_KEY = settings.TMDB_API_KEY
 def index(request):
     return render(request, 'api/index.html')
 
+def signIn(request):
+    return render(request, 'api/signIn.html')
+
+def about(request):
+    return render(request, 'api/about.html')
+
 
 # Pre-Load the movie genres from API to database
 def loadGenres():
@@ -55,8 +61,13 @@ def SearchResult(request):
             backdroppath = movie['backdrop_path']
 
             ## INSERT INTO Movies
-            Movie.objects.get_or_create(id = id,poster_path=posterpath, backdrop_path=backdroppath, adult = adult,release_date=release, original_language = oglanguage, original_title = ogtitle, overview=overview, title=title, video=video) 
+            if(len(release) != 10) :
+                release = None
+            
+            Movie.objects.get_or_create(id = id,defaults={"poster_path":posterpath, "backdrop_path":backdroppath, "adult" : adult,"release_date":release, "original_language":  oglanguage, "original_title" : ogtitle, "overview":overview, "title":title, "video":video}) 
             d2 = Movie.objects.get(id=id)
+
+            
             ## Assigning each movies its genres 
             for genre in genres:
                 d2.genres.add(genre)
@@ -84,8 +95,8 @@ def SearchResult(request):
                     name = x['name']
                     icon = x['icon']
                     ## Inserting the streaming info for each movie
-                    StreamInfo.objects.get_or_create(display_name=displayn,sid=sid,url=url,name=name,icon=icon)
-                    d2.streaminfo.add(url)
+                    newinfo = StreamInfo.objects.get_or_create(display_name=displayn,sid=sid,url=url,name=name,icon=icon)
+                    d2.streaminfo.add(newinfo[0].id)
             ##Just some checking
             ##for genre in d2.streaminfo.all():
                 ##print(genre.__dict__)

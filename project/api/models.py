@@ -11,7 +11,7 @@ class StreamInfo(models.Model):
     sid = models.CharField(max_length=255, default=0,null=True)
     name = models.CharField(max_length=255,null=True,blank=True)
     icon = models.CharField(max_length=255,null=True,blank=True)
-    url = models.CharField(max_length=255,primary_key=True)
+    url = models.CharField(max_length=255, null=True, blank=True)
 
 
 class Movie(models.Model):
