@@ -8,13 +8,10 @@ Home
 <div class="nav">
     <ul>
         <li>
-            <a href="default.asp">Home</a>
+            <a href="{% url 'index' %}">Home</a>
         </li>
         <li>
-            <a href="contact.asp">Contact</a>
-        </li>
-        <li>
-            <a href="about.asp">About</a>
+            <a href="{% url 'about' %}">About</a>
         </li>
         <li style="float: right">
             <a href="about.asp">
@@ -22,10 +19,7 @@ Home
             </a>
         </li>
         <li style="float: right">
-            <a href="about.asp">Login</a>
-        </li>
-        <li style="float: right">
-            <a href="about.asp">Sign In</a>
+            <a href="{% url 'signIn' %}">Sign In</a>
         </li>
     </ul>
 </div>
