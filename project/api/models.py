@@ -36,6 +36,11 @@ class Movie(models.Model):
     video = models.BooleanField(default=False)
     vote_average = models.FloatField(null=True, blank=True)
     vote_count = models.IntegerField(null=True, blank=True)
+    rating = models.FloatField(default=0.0)
+    ratingcount = models.IntegerField(default=0)
+    likes= models.IntegerField(default=0)
+    genres = models.ManyToManyField(Genre)
+    streaminfo = models.ManyToManyField(StreamInfo)
 
     def __str__(self):
         return self.title
