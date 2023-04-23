@@ -1,6 +1,17 @@
 from django.db import models
-
+from user.models import User
 # Create your models here.
+
+class Genre(models.Model):
+    gid = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=255)
+
+class StreamInfo(models.Model):
+    display_name = models.CharField(max_length=255, null=True,blank=True)
+    sid = models.CharField(max_length=255, default=0,null=True)
+    name = models.CharField(max_length=255,null=True,blank=True)
+    icon = models.CharField(max_length=255,null=True,blank=True)
+    url = models.CharField(max_length=255, null=True, blank=True)
 
 
 class Movie(models.Model):
@@ -25,6 +36,28 @@ class Movie(models.Model):
     video = models.BooleanField(default=False)
     vote_average = models.FloatField(null=True, blank=True)
     vote_count = models.IntegerField(null=True, blank=True)
+    rating = models.FloatField(default=0.0)
+    ratingcount = models.IntegerField(default=0)
+    likes= models.IntegerField(default=0)
+    genres = models.ManyToManyField(Genre)
+    streaminfo = models.ManyToManyField(StreamInfo, blank=True)
+    recommended = models.ManyToManyField('Movie', blank=True)
 
     def __str__(self):
         return self.title
+    
+class FavoritedMovie(models.Model):
+    movie = models.ForeignKey('Movie', on_delete=models.RESTRICT)
+    user = models.ForeignKey('user.User', on_delete=models.RESTRICT)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.movie.title
+    
+class FavoriteMovie(models.Model):
+    movie = models.ForeignKey('Movie', on_delete=models.RESTRICT)
+    user = models.ForeignKey('user.User', on_delete=models.RESTRICT)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.movie.title

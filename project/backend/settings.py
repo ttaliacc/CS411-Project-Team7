@@ -38,14 +38,39 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'api.apps.ApiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'api.apps.ApiConfig', 
+    'user.apps.UserConfig',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google', #Google login
 ]
+
+SITE_ID = 5
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email'
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+    }
+}
+
+ACCOUNT_USERNAME_REQUIRED = False
+
+# AUTH_USER_MODEL = 'user.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -87,6 +112,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 # Password validation
@@ -133,3 +169,18 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# {
+#     "web": {
+#         "client_id": "586734677780-vv5o4bao88hcf8q3lnl1bg40bji79b4d.apps.googleusercontent.com",
+#         "project_id": "movie-generator-383804",
+#         "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+#         "token_uri": "https://oauth2.googleapis.com/token",
+#         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+#         "client_secret": "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",
+#         "redirect_uris": [
+#             "http://127.0.0.1:8000",
+#             "http://127.0.0.1:8000/accounts/google/login/callback"
+#         ]
+#     }
+# }
