@@ -7,8 +7,7 @@ from django.core.serializers import serialize
 from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
-import tmdbsimple as tmdb
-tmdb.API_KEY = settings.TMDB_API_KEY
+
 
 #https://github.com/celiao/tmdbsimple
 
@@ -25,29 +24,38 @@ def about(request):
 
 # Pre-Load the movie genres from API to database
 def loadGenres():
-    genres = tmdb.Genres()
-    genresl = genres.movie_list()['genres']
-    for genre in genresl:
+    genres = requests.get('https://api.themoviedb.org/3/genre/movie/list',{'api_key' : settings.TMDB_API_KEY})    
+    genresj = genres.json()
+    genresjl = genresj['genres']
+    for genre in genresjl:
         id = genre['id']
         name = genre['name']
         Genre.objects.get_or_create(gid=id,name=name)
 
 def getMovieInfo(movie_id):
-    movie = tmdb.Movies(movie_id)
-    movie_info = movie.info()
-    return movie_info
+    movie = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={settings.TMDB_API_KEY}&language=en-US')
+
+    return movie.json()
 
 def SearchResult(request):
     loadGenres()
     # Get the search query from the 'q' URL parameter.
     query = request.GET.get('q')
     if query:
-        search = tmdb.Search()
-        response = search.movie(query=query)
+        squery = request.GET.get('q')
+    if query:
+        url = 'https://api.themoviedb.org/3/search/movie'
+        params = {
+        'api_key': settings.TMDB_API_KEY,
+        'query': query
+        }  
+        # Call the TMDB API to search for movies with query if it exists.
+        response = requests.get(url, params=params)
+        results = response.json()['results']
 
         # Insert the movies queried into the database
         finalresult = []
-        for movie in search.results:
+        for movie in results:
             id = movie['id'] 
             adult = movie['adult']
             oglanguage = movie['original_language']
@@ -79,7 +87,7 @@ def SearchResult(request):
                    ##print(genre.__dict__)
             finalresult.append(d2)
         
-        for result in search.results:
+        for result in results:
             # Call the Utelly API to get streaming information for each movie.
             response = requests.get(f'https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?country=us&source_id={result["id"]}&source=tmdb', headers={'x-rapidapi-key': settings.X_RAPIDAPI_KEY, 'x-rapidapi-host': settings.X_RAPIDAPI_HOST})
             id = result['id']
@@ -105,7 +113,6 @@ def SearchResult(request):
     else:
         # If no search query was provided, return an error message.
         return HttpResponse('Please enter a search query')
-    print(finalresult)
     context = {'results': finalresult}
     return render(request, 'api/results.html', context)
     # Return the search results with streaming information as a JSON response.
@@ -125,14 +132,14 @@ def SearchResult(request):
 
 def MovieDetails(request, movie_id):
     movie = Movie.objects.get(id=movie_id)
-    recommended_movies = movie.recommended_movies.all()
+    recommended = movie.recommended.all()
     finalresult = []
-    finalresult.append(recommended_movies)
+    finalresult.append(recommended)
     # If there are no recommended movies for this movie
-    if not recommended_movies.all():
-
-        m = tmdb.Movies(movie_id)
-        recommendations = m.recommendations()['results']
+    print('helllo')
+    if not recommended:
+        response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}/recommendations?api_key={settings.TMDB_API_KEY}&language=en-US&page=1')
+        recommendations = response.json()['results']
         for recommendation in recommendations:
             movie_info = getMovieInfo(recommendation['id'])
             id = movie_info['id'] 
@@ -152,14 +159,16 @@ def MovieDetails(request, movie_id):
             ## Assigning each movies its genres 
             d2.genres.add(genre)
 
-            movie.recommended_movies.add(d2)
+            movie.recommended.add(d2)
+            print(movie.recommended.all())
 
             ##print(d2.__dict__) to see fields
             ##Checking if genres worked
             ##for genre in d2.genres.all():
                    ##print(genre.__dict__)
-    print(movie.recommended_movies.all())
     return render(request, 'api/movie_detail.html', {'movie': movie})
+
+#Needs Work 
 @login_required
 class FavoriteMovie(ListView):
     def get_context_data(self, **kwargs):

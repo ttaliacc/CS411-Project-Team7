@@ -41,7 +41,7 @@ class Movie(models.Model):
     likes= models.IntegerField(default=0)
     genres = models.ManyToManyField(Genre)
     streaminfo = models.ManyToManyField(StreamInfo, blank=True)
-    recommended_movies = models.ManyToManyField('Movie', blank=True)
+    recommended = models.ManyToManyField('Movie', blank=True)
 
     def __str__(self):
         return self.title
