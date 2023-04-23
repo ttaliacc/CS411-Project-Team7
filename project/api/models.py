@@ -42,6 +42,7 @@ class Movie(models.Model):
     genres = models.ManyToManyField(Genre)
     streaminfo = models.ManyToManyField(StreamInfo, blank=True)
     recommended = models.ManyToManyField('Movie', blank=True)
+    imdb = models.URLField(max_length=128, blank=True)
 
     def __str__(self):
         return self.title
