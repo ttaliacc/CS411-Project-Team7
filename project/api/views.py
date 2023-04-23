@@ -119,63 +119,19 @@ def SearchResult(request):
     # Return the search results with streaming information as a JSON response.
 
 #Currently not supported
-def MovieDetail(request, movie_id):
-    response = requests.get(f'https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?country=us&source_id={movie_id}&source=tmdb', headers={'x-rapidapi-key': settings.X_RAPIDAPI_KEY, 'x-rapidapi-host': settings.X_RAPIDAPI_HOST})
+def MovieDetails(request, movie_id):
 
-    imdb_url = response.json()['collection']
+    # Get imdb id using TMDB API
+    response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}/external_ids?api_key={settings.TMDB_API_KEY}')
+    imdb_id = response.json()['imdb_id']
 
-    print(imdb_url['source_id'])
-    return redirect(imdb_url)
+    # If imdb id exists, redirect to IMDb page
+    if imdb_id:
+        response = requests.get(f'https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?country=us&source_id={imdb_id}&source=imdb', headers={'x-rapidapi-key': settings.X_RAPIDAPI_KEY, 'x-rapidapi-host': settings.X_RAPIDAPI_HOST})  
+        imdb_url = response.json()['collection']['source_ids']['imdb']['url']
+        return redirect(imdb_url)
 
-#     movie = Movie.objects.get(id=movie_id)
-
-#     streaming = Movie.objects.get(id=movie_id).streaminfo.all()
-    
-#     response  = request.get(f'https://api.themoviedb.org/3/movie/{movie_id}/recommendations?api_key={settings.TMDB_API_KEY}&language=en-US&page=1')
-#     results = response.json()['results']
-
-#     for result in results:
-
-#     return render(request, 'api/movie_detail.html', {'movie': movie,'streaming': streaming})
-
-# def MovieDetails(request, movie_id):
-
-    # movie = Movie.objects.get(id=movie_id)
-    # recommended = movie.recommended.all()
-    # finalresult = []
-    # finalresult.append(recommended)
-    # # If there are no recommended movies for this movie
-    # print('helllo')
-    # if not recommended:
-    #     response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}/recommendations?api_key={settings.TMDB_API_KEY}&language=en-US&page=1')
-    #     recommendations = response.json()['results']
-    #     for recommendation in recommendations:
-    #         movie_info = getMovieInfo(recommendation['id'])
-    #         id = movie_info['id'] 
-    #         adult = movie_info['adult']
-    #         oglanguage = movie_info['original_language']
-    #         ogtitle = movie_info['original_title']
-    #         overview = movie_info['overview']
-    #         title = movie_info['title']
-    #         video = movie_info['video']
-    #         release = movie_info['release_date']
-    #         genre = movie_info['genres'][0]['id']
-    #         posterpath = movie_info['poster_path']
-    #         backdroppath = movie_info['backdrop_path']
-            
-    #         Movie.objects.get_or_create(id = id,poster_path=posterpath, backdrop_path=backdroppath, adult = adult,release_date=release, original_language = oglanguage, original_title = ogtitle, overview=overview, title=title, video=video) 
-    #         d2 = Movie.objects.get(id=id)
-    #         ## Assigning each movies its genres 
-    #         d2.genres.add(genre)
-
-    #         movie.recommended.add(d2)
-    #         print(movie.recommended.all())
-
-            ##print(d2.__dict__) to see fields
-            ##Checking if genres worked
-            ##for genre in d2.genres.all():
-                   ##print(genre.__dict__)
-    return render(request, 'api/movie_detail.html', {'movie': movie})
+    return redirect(request.path_info)
 
 #Needs Work 
 @login_required
