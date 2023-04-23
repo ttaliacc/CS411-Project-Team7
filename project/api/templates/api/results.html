@@ -8,15 +8,24 @@ Results
 <div>
     <div class="nav">
         <ul>
-            <li>
+            <li style="padding: 14px 16px;">
                 <a href="{% url 'index' %}">Home</a>
             </li>
-            <li>
+            <li style="padding: 14px 16px;">
                 <a href="{% url 'about' %}">About</a>
             </li>
+            {% if user.is_authenticated %}
+            <li>
             <li style="float: right; margin-right: 20px;">
+                <a href="{% url 'login' %}"><img class="userIcon"
+                        src="https://img.icons8.com/windows/512/user.png" /></i></a>
+            </li>
+            </li>
+            {% else %}
+            <li style="float: right; margin-right: 20px; padding: 14px 16px;">
                 <a href="{% url 'login' %}">Sign In</a>
             </li>
+            {% endif %}
         </ul>
     </div>
     <div class="card-container">
@@ -42,6 +51,19 @@ Results
                 {% endif %}
                 <a href="/{{ type }}/{{ m.id }}/" class="btn btn-primary">View Details</a>
             </div>
+        </div>
+        <div class="like">
+            <!-- if liked -->
+            {% if m.name %}
+            <a href="#">
+                <img class="heart" src="https://img.icons8.com/ios/512/like.png">
+            </a>
+            <!-- if not liked -->
+            {% else %}
+            <a href="#">
+                <img class="heart" src="https://img.icons8.com/color/512/filled-like.png">
+            </a>
+            {% endif %}
         </div>
         {% endfor %}
     </div>

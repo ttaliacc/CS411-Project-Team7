@@ -27,6 +27,7 @@
             position: fixed;
             top: 0;
             width: 100%;
+            left: 0;
             list-style-type: none;
             margin: 0;
             padding: 0;
@@ -42,7 +43,6 @@
             display: block;
             color: white;
             text-align: center;
-            padding: 14px 16px;
             text-decoration: none;
         }
 
@@ -55,6 +55,10 @@
             color: #ffb800;
             margin: 80px;
             font-size: 30px;
+        }
+
+        .userIcon {
+            height: 45px;
         }
 
         .content {
@@ -80,15 +84,24 @@
 <div>
     <div class="nav">
         <ul>
-            <li>
+            <li style="padding: 14px 16px;">
                 <a href="{% url 'index' %}">Home</a>
             </li>
-            <li>
+            <li style="padding: 14px 16px;">
                 <a href="{% url 'about' %}">About</a>
             </li>
+            {% if user.is_authenticated %}
+            <li>
             <li style="float: right; margin-right: 20px;">
+                <a href="{% url 'login' %}"><img class="userIcon"
+                        src="https://img.icons8.com/windows/512/user.png" /></i></a>
+            </li>
+            </li>
+            {% else %}
+            <li style="float: right; margin-right: 20px; padding: 14px 16px;">
                 <a href="{% url 'login' %}">Sign In</a>
             </li>
+            {% endif %}
         </ul>
     </div>
     <div class="title">
