@@ -119,7 +119,7 @@ def SearchResult(request):
     # Return the search results with streaming information as a JSON response.
 
 #Currently not supported
-def MovieDetail(request, movie_id):
+def MovieDetails(request, movie_id):
 
     # Get imdb id using TMDB API
     response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}/external_ids?api_key={settings.TMDB_API_KEY}')
@@ -131,7 +131,7 @@ def MovieDetail(request, movie_id):
         imdb_url = response.json()['collection']['source_ids']['imdb']['url']
         return redirect(imdb_url)
 
-    return HttpResponse('Movie not found in IMDb')
+    return redirect(request.path_info)
 
 #Needs Work 
 @login_required
