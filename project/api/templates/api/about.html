@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>about</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anuphan:wght@100&family=Raleway&family=Roboto:wght@100&display=swap"
+        rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
 
     <style>
         body {
             background: url("https://www.timemachine.eu/wp-content/uploads/2022/07/pexels-jakub-novacek-924824.jpg") repeat center center fixed;
             box-sizing: border-box;
-            font-family: 'Raleway', sans-serif;
+            font-family: "Raleway", sans-serif;
         }
 
         .nav {
@@ -21,6 +27,7 @@
             position: fixed;
             top: 0;
             width: 100%;
+            left: 0;
             list-style-type: none;
             margin: 0;
             padding: 0;
@@ -36,7 +43,6 @@
             display: block;
             color: white;
             text-align: center;
-            padding: 14px 16px;
             text-decoration: none;
         }
 
@@ -45,33 +51,95 @@
             background-color: #111;
         }
 
-        .gg-profile {
-            float: right;
+        .title {
+            color: #ffb800;
+            margin: 80px;
+            font-size: 30px;
+        }
+
+        .userIcon {
+            height: 45px;
+        }
+
+        .content {
+            color: #FFFFFF;
+            margin: 130px;
+            margin-top: -60px;
+            font-size: 20px;
+            line-height: 30px;
+        }
+
+        .card {
+            width: 80%;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: #fcfcfc39;
+            border: 5px solid #3c2b00;
+            border-radius: 5px;
+            color: #f1f1f1;
+            padding: 20px;
         }
     </style>
-
 </head>
-    <div>
-        <div class="nav">
-            <ul>
-                <li>
-                    <a href="{% url 'index' %}">Home</a>
-                </li>
-                <li>
-                    <a href="{% url 'about' %}">About</a>
-                </li>
-                <li style="float: right">
-                    <a href="about.asp">
-                        <i class="gg-profile"></i>
-                    </a>
-                </li>
-                <li style="float: right">
-                    <a href="{% url 'login' %}">Sign In</a>
-                </li>
-            </ul>
-        </div>
+<div>
+    <div class="nav">
+        <ul>
+            <li style="padding: 14px 16px;">
+                <a href="{% url 'index' %}">Home</a>
+            </li>
+            <li style="padding: 14px 16px;">
+                <a href="{% url 'about' %}">About</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li>
+            <li style="float: right; margin-right: 20px;">
+                <a href="{% url 'login' %}"><img class="userIcon"
+                        src="https://img.icons8.com/windows/512/user.png" /></i></a>
+            </li>
+            </li>
+            {% else %}
+            <li style="float: right; margin-right: 20px; padding: 14px 16px;">
+                <a href="{% url 'login' %}">Sign In</a>
+            </li>
+            {% endif %}
+        </ul>
     </div>
-<body>
-    
-</body>
+    <div class="title">
+        <h1>About Us</h1>
+    </div>
+    <div class="content card">
+        <p>
+            Welcome to our Movie Generator website! We are a team of movie
+            enthusiasts who believe that everyone should be able to find the perfect
+            movie to watch, no matter how specific their tastes may be.
+        </p>
+        <p>
+            Our platform
+            uses random words from the user to recommend a variety of movies,
+            ranging from classic blockbusters to hidden gems that you may have never
+            heard of before.
+        </p>
+        <p>
+            With our powerful filtering system, you can easily
+            customize your movie recommendations based on genre, rating, and even
+            release date. We also offer the ability to build lists of liked movies
+            and save movies to watch later, ensuring that you never miss out on a
+            great film.
+        </p>
+        <p>
+            In addition, we offer the unique feature of allowing users
+            to give personal ratings and comments independently of general ratings
+            elsewhere.
+        </p>
+        <p>
+            Our mission is to provide you with a personalized and
+            hassle-free movie watching experience, where you can discover new movies
+            that you may never have come across otherwise. So sit back, relax, and
+            let us help you find your next favorite movie!
+        </p>
+    </div>
+</div>
+
+<body></body>
+
 </html>

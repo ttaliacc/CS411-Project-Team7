@@ -7,20 +7,24 @@ Home
 {% block main %}
 <div class="nav">
     <ul>
-        <li>
+        <li style="padding: 14px 16px;">
             <a href="{% url 'index' %}">Home</a>
         </li>
-        <li>
+        <li style="padding: 14px 16px;">
             <a href="{% url 'about' %}">About</a>
         </li>
-        <li style="float: right">
-            <a href="about.asp">
-                <i class="gg-profile"></i>
-            </a>
+        {% if user.is_authenticated %}
+        <li>
+        <li style="float: right; margin-right: 20px;">
+            <a href="{% url 'login' %}"><img class="userIcon"
+                    src="https://img.icons8.com/windows/512/user.png" /></i></a>
         </li>
-        <li style="float: right">
+        </li>
+        {% else %}
+        <li style="float: right; margin-right: 20px; padding: 14px 16px;">
             <a href="{% url 'login' %}">Sign In</a>
         </li>
+        {% endif %}
     </ul>
 </div>
 
@@ -30,7 +34,7 @@ Home
 </div>
 <div class="functionBar">
     <button>Filter</button>
-    <button>Random Words</button>
+    <button>Random words</button>
 </div>
 <div class="searchBar">
     <form action="/search/" method="get" class="search">

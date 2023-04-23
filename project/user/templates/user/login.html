@@ -1,20 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Sign In</title>
-</head>
-<body>
-    {% load socialaccount %}
-    <h2>Google Login</h2>
-    <a href="{% provider_login_url 'google' %}?next=/">Login with Google</a>
 
-    {% if user.is_authenticated %}
-    
-    <p>You are signed in as {{user.socialaccount_set.all.0.extra_data.email}}</p> 
-    <a href="logout">Logout</a>
-    {% endif %}
+    <style>
+        .background {
+            background: url("https://www.timemachine.eu/wp-content/uploads/2022/07/pexels-jakub-novacek-924824.jpg") repeat center center fixed;
+            box-sizing: border-box;
+            font-family: 'Raleway', sans-serif;
+            color: white;
+        }
+
+        .nav {
+            width: 100%;
+        }
+
+        .nav ul {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #996e00;
+        }
+
+        .nav li {
+            float: left;
+        }
+
+        .nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        /* Change the link color to #111 (black) on hover */
+        .nav li a:hover {
+            background-color: #111;
+        }
+
+
+        .login {
+            margin-top: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-items: center;
+            justify-content: center;
+            color: aliceblue;
+            font-size: 45px;
+        }
+
+        #login {
+            color: aliceblue;
+            font-size: 50px;
+        }
+
+        .google {
+            margin-top: 2%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+</head>
+
+<body class="background">
+    <div>
+        <div class="nav">
+            <ul>
+                <li>
+                    <a href="{% url 'index' %}">Home</a>
+                </li>
+                <li>
+                    <a href="{% url 'about' %}">About</a>
+                </li>
+                <li style="float: right; margin-right: 20px;">
+                    <a href="{% url 'login' %}">Sign In</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            {% if user.is_authenticated %}
+            <div>
+                <p>You are signed in as {{user.socialaccount_set.all.0.extra_data.email}}</p>
+                <a href="logout">Logout</a>
+            </div>
+            {% else %}
+            <div>
+                <div class="login">
+                    {% load socialaccount %}
+                    <h2>Login With Google</h2>
+                </div>
+                <div class="google">
+                    <a href="{% provider_login_url 'google' %}?next=/"><img
+                            src="https://cdn.freebiesupply.com/logos/large/2x/google-icon-logo-png-transparent.png"
+                            width="300px" />
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
 </body>
+
 </html>
