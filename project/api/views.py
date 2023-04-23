@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect
 import requests
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
@@ -13,7 +13,13 @@ from django.views.generic import ListView
 
 # Create your views here.
 def index(request):
-    return render(request, 'api/index.html')
+    genres = requests.get('https://api.themoviedb.org/3/genre/movie/list',
+    {'api_key' : settings.TMDB_API_KEY}) 
+    genresj = genres.json()
+    genresjl = genresj['genres']
+    context = {genres:genresjl} 
+#     print(context)
+    return render(request, 'api/index.html', context)
 
 def signIn(request):
     return render(request, 'api/signIn.html')
@@ -31,11 +37,6 @@ def loadGenres():
         id = genre['id']
         name = genre['name']
         Genre.objects.get_or_create(gid=id,name=name)
-
-def getMovieInfo(movie_id):
-    movie = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={settings.TMDB_API_KEY}&language=en-US')
-
-    return movie.json()
 
 def SearchResult(request):
     loadGenres()
@@ -118,7 +119,14 @@ def SearchResult(request):
     # Return the search results with streaming information as a JSON response.
 
 #Currently not supported
-# def MovieDetail(request, movie_id):
+def MovieDetail(request, movie_id):
+    response = requests.get(f'https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?country=us&source_id={movie_id}&source=tmdb', headers={'x-rapidapi-key': settings.X_RAPIDAPI_KEY, 'x-rapidapi-host': settings.X_RAPIDAPI_HOST})
+
+    imdb_url = response.json()['collection']
+
+    print(imdb_url['source_id'])
+    return redirect(imdb_url)
+
 #     movie = Movie.objects.get(id=movie_id)
 
 #     streaming = Movie.objects.get(id=movie_id).streaminfo.all()
@@ -130,37 +138,38 @@ def SearchResult(request):
 
 #     return render(request, 'api/movie_detail.html', {'movie': movie,'streaming': streaming})
 
-def MovieDetails(request, movie_id):
-    movie = Movie.objects.get(id=movie_id)
-    recommended = movie.recommended.all()
-    finalresult = []
-    finalresult.append(recommended)
-    # If there are no recommended movies for this movie
-    print('helllo')
-    if not recommended:
-        response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}/recommendations?api_key={settings.TMDB_API_KEY}&language=en-US&page=1')
-        recommendations = response.json()['results']
-        for recommendation in recommendations:
-            movie_info = getMovieInfo(recommendation['id'])
-            id = movie_info['id'] 
-            adult = movie_info['adult']
-            oglanguage = movie_info['original_language']
-            ogtitle = movie_info['original_title']
-            overview = movie_info['overview']
-            title = movie_info['title']
-            video = movie_info['video']
-            release = movie_info['release_date']
-            genre = movie_info['genres'][0]['id']
-            posterpath = movie_info['poster_path']
-            backdroppath = movie_info['backdrop_path']
-            
-            Movie.objects.get_or_create(id = id,poster_path=posterpath, backdrop_path=backdroppath, adult = adult,release_date=release, original_language = oglanguage, original_title = ogtitle, overview=overview, title=title, video=video) 
-            d2 = Movie.objects.get(id=id)
-            ## Assigning each movies its genres 
-            d2.genres.add(genre)
+# def MovieDetails(request, movie_id):
 
-            movie.recommended.add(d2)
-            print(movie.recommended.all())
+    # movie = Movie.objects.get(id=movie_id)
+    # recommended = movie.recommended.all()
+    # finalresult = []
+    # finalresult.append(recommended)
+    # # If there are no recommended movies for this movie
+    # print('helllo')
+    # if not recommended:
+    #     response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}/recommendations?api_key={settings.TMDB_API_KEY}&language=en-US&page=1')
+    #     recommendations = response.json()['results']
+    #     for recommendation in recommendations:
+    #         movie_info = getMovieInfo(recommendation['id'])
+    #         id = movie_info['id'] 
+    #         adult = movie_info['adult']
+    #         oglanguage = movie_info['original_language']
+    #         ogtitle = movie_info['original_title']
+    #         overview = movie_info['overview']
+    #         title = movie_info['title']
+    #         video = movie_info['video']
+    #         release = movie_info['release_date']
+    #         genre = movie_info['genres'][0]['id']
+    #         posterpath = movie_info['poster_path']
+    #         backdroppath = movie_info['backdrop_path']
+            
+    #         Movie.objects.get_or_create(id = id,poster_path=posterpath, backdrop_path=backdroppath, adult = adult,release_date=release, original_language = oglanguage, original_title = ogtitle, overview=overview, title=title, video=video) 
+    #         d2 = Movie.objects.get(id=id)
+    #         ## Assigning each movies its genres 
+    #         d2.genres.add(genre)
+
+    #         movie.recommended.add(d2)
+    #         print(movie.recommended.all())
 
             ##print(d2.__dict__) to see fields
             ##Checking if genres worked
