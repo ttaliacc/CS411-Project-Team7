@@ -86,30 +86,30 @@
                 <li>
                     <a href="{% url 'about' %}">About</a>
                 </li>
-                <li style="float: right">
-                    <a href="about.asp">
-                        <i class="gg-profile"></i>
-                    </a>
-                </li>
-                <li style="float: right">
+                <li style="float: right; margin-right: 20px;">
                     <a href="{% url 'login' %}">Sign In</a>
                 </li>
             </ul>
         </div>
-        <div class="login">
-            {% load socialaccount %}
-            <h2>Login With Google</h2>
-        </div>
-        <div class="google">
-            <a href="{% provider_login_url 'google' %}?next=/"><img
-                    src="https://cdn.freebiesupply.com/logos/large/2x/google-icon-logo-png-transparent.png"
-                    width="300px" />
-            </a>
-        </div>
         <div>
             {% if user.is_authenticated %}
-            <p>You are signed in as {{user.socialaccount_set.all.0.extra_data.email}}</p>
-            <a href="logout">Logout</a>
+            <div>
+                <p>You are signed in as {{user.socialaccount_set.all.0.extra_data.email}}</p>
+                <a href="logout">Logout</a>
+            </div>
+            {% else %}
+            <div>
+                <div class="login">
+                    {% load socialaccount %}
+                    <h2>Login With Google</h2>
+                </div>
+                <div class="google">
+                    <a href="{% provider_login_url 'google' %}?next=/"><img
+                            src="https://cdn.freebiesupply.com/logos/large/2x/google-icon-logo-png-transparent.png"
+                            width="300px" />
+                    </a>
+                </div>
+            </div>
             {% endif %}
         </div>
     </div>
