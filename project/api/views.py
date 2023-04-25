@@ -22,7 +22,6 @@ def index(request):
         context = {'genres': genresjl, 'random_query': random_query}
     else: 
         context = {genres:genresjl} 
-    print(context)
     return render(request, 'api/index.html', context)
 
 def signIn(request):

@@ -34,11 +34,12 @@ Home
 </div>
 <div class="functionBar">
     <button>Filter</button>
-    <button>Random words</button>
+    <button>Random</button>
+    <!-- <button onclick="location.href='{ %url 'random_query' %}'">Random</button> need a form?--> 
 </div>
 <div class="searchBar">
     <form action="/search/" method="get" class="search">
-        <input type="text" class="form-control" placeholder="Find your movies here..." name="q">
+        <input type="text" class="form-control" placeholder="Find your movies here..." name="q" value={{random_query}}>
         <button type="submit" class="w-100">search</button>
     </form>
 </div>
