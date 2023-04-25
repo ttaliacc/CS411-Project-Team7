@@ -8,3 +8,4 @@
 #
 Django==4.0.7
 django-allauth==0.54.0
+Random-Word==1.0.11
