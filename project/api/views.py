@@ -47,7 +47,6 @@ def SearchResult(request):
         params = {
         'api_key': settings.TMDB_API_KEY,
         'query': query,
-        'page': request.GET.get('page', 1)
         }  
         # Call the TMDB API to search for movies with query if it exists.
         response = requests.get(url, params=params)
@@ -92,7 +91,7 @@ def SearchResult(request):
 
         
         for result in results:
-            if any(genre_id in movie['genre_ids'] for genre_id in with_genres):
+            if any(genre_id in result['genre_ids'] for genre_id in with_genres):
                 # Call the Utelly API to get streaming information for each movie.
                 response = requests.get(f'https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?country=us&source_id={result["id"]}&source=tmdb', headers={'x-rapidapi-key': settings.X_RAPIDAPI_KEY, 'x-rapidapi-host': settings.X_RAPIDAPI_HOST})
                 id = result['id']
