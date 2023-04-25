@@ -17,8 +17,12 @@ def index(request):
     {'api_key' : settings.TMDB_API_KEY}) 
     genresj = genres.json()
     genresjl = genresj['genres']
-    context = {genres:genresjl} 
-#     print(context)
+    random_query = request.session.get('random_query')
+    if random_query:
+        context = {'genres': genresjl, 'random_query': random_query}
+    else: 
+        context = {genres:genresjl} 
+    print(context)
     return render(request, 'api/index.html', context)
 
 def signIn(request):
@@ -139,4 +143,5 @@ def random_query(request):
     r = RandomWords()
     random_query = r.get_random_word()
     context = {'random_query': random_query}
-    return render(request, 'api/index.html', context)
+    request.session['random_query'] = random_query
+    return redirect(index)
