@@ -79,15 +79,16 @@ def SearchResult(request):
 
                 
                 ## Assigning each movies its genres 
+                
                 for genre in genres:
                     d2.genres.add(genre)
 
-
                 ##print(d2.__dict__) to see fields
                 ##Checking if genres worked
-                ##for genre in d2.genres.all():
-                    ##print(genre.__dict__)
+                #for genre in d2.genres.all():
+                    #print(genre.__dict__)
                 finalresult.append(d2)
+      
 
         
         for result in results:
@@ -95,6 +96,7 @@ def SearchResult(request):
                 # Call the Utelly API to get streaming information for each movie.
                 response = requests.get(f'https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?country=us&source_id={result["id"]}&source=tmdb', headers={'x-rapidapi-key': settings.X_RAPIDAPI_KEY, 'x-rapidapi-host': settings.X_RAPIDAPI_HOST})
                 id = result['id']
+                
                 d2 = Movie.objects.get(id=id) 
                 # Add the streaming information to the search result dictionary.
                 result['streaming_info'] = response.json()['collection']
@@ -121,9 +123,7 @@ def SearchResult(request):
     return render(request, 'api/results.html', context)
     # Return the search results with streaming information as a JSON response.
 
-def MovieDetails(request, movie_id):
-
-    # Get imdb id using TMDB API
+def MovieDetails(request, movie_id):    # Get imdb id using TMDB API
     response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}/external_ids?api_key={settings.TMDB_API_KEY}')
     imdb_id = response.json()['imdb_id']
 
