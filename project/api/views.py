@@ -2,9 +2,8 @@ from django.shortcuts import render, redirect, reverse
 import requests
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
-from .models import Movie, Genre, StreamInfo, FavoritedMovie
+from .models import Movie, Genre, StreamInfo
 from django.core.serializers import serialize
-from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from random_word import RandomWords
