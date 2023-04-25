@@ -7,12 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Sign In</title>
 
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anuphan:wght@100&family=Raleway&family=Roboto:wght@100&display=swap"
+        rel="stylesheet" />
+
+    <title>{% block title %}{% endblock %}</title>
+
     <style>
         .background {
-            background: url("https://www.timemachine.eu/wp-content/uploads/2022/07/pexels-jakub-novacek-924824.jpg") repeat center center fixed;
+            background: url("https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2") repeat center center fixed;
             box-sizing: border-box;
             font-family: 'Raleway', sans-serif;
             color: white;
+        }
+
+        a {
+            text-decoration: none;
         }
 
         .nav {
@@ -22,6 +32,7 @@
         .nav ul {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
             list-style-type: none;
             margin: 0;
@@ -38,7 +49,6 @@
             display: block;
             color: white;
             text-align: center;
-            padding: 14px 16px;
             text-decoration: none;
         }
 
@@ -46,7 +56,6 @@
         .nav li a:hover {
             background-color: #111;
         }
-
 
         .login {
             margin-top: 2px;
@@ -72,6 +81,78 @@
             align-items: center;
             justify-content: center;
         }
+
+        .image {
+            position: absolute;
+            margin-top: 100px;
+            margin-left: 500px;
+            text-align: center;
+            align-items: center;
+        }
+
+        .headshot {
+            border-radius: 50%;
+            height: 400px;
+            border: 5px solid #FFB800;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #ffb800;
+            color: white;
+            font-size: 17px;
+            border: 1px solid grey;
+            border-left: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        .userIcon {
+            height: 45px;
+        }
+
+        .library {
+            position: absolute;
+            right: 150px;
+            top: 160px;
+        }
+
+        .movies {
+            height: 300px;
+            width: 700px;
+            border: 5px solid white;
+            background-color: #fcfcfc39;
+            border-radius: 20px;
+            overflow-x: scroll;
+            white-space: nowrap;
+            padding: 5px;
+        }
+
+        .card {
+            display: inline-block;
+            margin-right: 10px;
+            display: inline-block;
+            text-align: center;
+            align-items: center;
+        }
+
+        .moviePoster {
+            position: relative;
+            margin-top: 0;
+        }
+
+        .movie {
+            border: 1px solid white;
+            border-radius: 10px;
+            width: 150px;
+            height: 250px;
+        }
+
+        .title {
+            margin-top: -8px;
+            color: white;
+            font: none;
+        }
     </style>
 
 </head>
@@ -80,39 +161,107 @@
     <div>
         <div class="nav">
             <ul>
-                <li>
+                <li style="padding: 14px 16px;">
                     <a href="{% url 'index' %}">Home</a>
                 </li>
-                <li>
+                <li style="padding: 14px 16px;">
                     <a href="{% url 'about' %}">About</a>
                 </li>
+                {% if user.is_authenticated %}
+                <li>
                 <li style="float: right; margin-right: 20px;">
+                    <a href="{% url 'login' %}"><img class="userIcon"
+                            src="https://img.icons8.com/windows/512/user.png" /></i></a>
+                </li>
+                </li>
+                {% else %}
+                <li style="float: right; margin-right: 20px; padding: 14px 16px;">
                     <a href="{% url 'login' %}">Sign In</a>
                 </li>
+                {% endif %}
             </ul>
         </div>
         <div>
             {% if user.is_authenticated %}
             <div>
-                <p>You are signed in as {{user.socialaccount_set.all.0.extra_data.email}}</p>
-                <a href="logout">Logout</a>
-            </div>
-            {% else %}
-            <div>
-                <div class="login">
-                    {% load socialaccount %}
-                    <h2>Login With Google</h2>
+                <div class="image">
+                    <img class="headshot" src="https://64.media.tumblr.com/tumblr_m0hmtp7spe1qbtwyto1_1280.jpg" />
+                    <h1>{{user.socialaccount_set.all.0.extra_data.given_name}}</h1>
+                    <a href="logout"><button>Logout {{user.socialaccount_set.all.0.extra_data.email}}</button></a>
                 </div>
-                <div class="google">
-                    <a href="{% provider_login_url 'google' %}?next=/"><img
-                            src="https://cdn.freebiesupply.com/logos/large/2x/google-icon-logo-png-transparent.png"
-                            width="300px" />
-                    </a>
+                <!-- <div class="library">
+                    <div>
+                        <h1>My Movies</h1>
+                    </div>
+                    <div class="movies">
+                        <div class="card">
+                            <a href="#">
+                                <div class="moviePoster">
+                                    <img class="movie" src="https://wallpaperaccess.com/full/791294.jpg" />
+                                </div>
+                                <div class="title">
+                                    <h3>title</h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a href="#">
+                                <div class="moviePoster">
+                                    <img class="movie" src="https://wallpaperaccess.com/full/791294.jpg" />
+                                </div>
+                                <div class="title">
+                                    <h3>title</h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a href="#">
+                                <div class="moviePoster">
+                                    <img class="movie" src="https://wallpaperaccess.com/full/791294.jpg" />
+                                </div>
+                                <div class="title">
+                                    <h3>title</h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a href="#">
+                                <div class="moviePoster">
+                                    <img class="movie" src="https://wallpaperaccess.com/full/791294.jpg" />
+                                </div>
+                                <div class="title">
+                                    <h3>title</h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a href="#">
+                                <div class="moviePoster">
+                                    <img class="movie" src="https://wallpaperaccess.com/full/791294.jpg" />
+                                </div>
+                                <div class="title">
+                                    <h3>title</h3>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div> -->
+                {% else %}
+                <div>
+                    <div class="login">
+                        {% load socialaccount %}
+                        <h2>Login With Google</h2>
+                    </div>
+                    <div class="google">
+                        <a href="{% provider_login_url 'google' %}?next=/"><img
+                                src="https://cdn.freebiesupply.com/logos/large/2x/google-icon-logo-png-transparent.png"
+                                width="300px" />
+                        </a>
+                    </div>
                 </div>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
-    </div>
 </body>
 
 </html>
