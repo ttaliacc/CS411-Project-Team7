@@ -41,24 +41,9 @@ class Movie(models.Model):
     likes= models.IntegerField(default=0)
     genres = models.ManyToManyField(Genre)
     streaminfo = models.ManyToManyField(StreamInfo, blank=True)
-    recommended = models.ManyToManyField('Movie', blank=True)
     imdb = models.URLField(max_length=128, blank=True)
 
     def __str__(self):
         return self.title
     
-class FavoritedMovie(models.Model):
-    movie = models.ForeignKey('Movie', on_delete=models.RESTRICT)
-    user = models.ForeignKey('user.User', on_delete=models.RESTRICT)
-    created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.movie.title
-    
-class FavoriteMovie(models.Model):
-    movie = models.ForeignKey('Movie', on_delete=models.RESTRICT)
-    user = models.ForeignKey('user.User', on_delete=models.RESTRICT)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.movie.title
