@@ -148,7 +148,11 @@ def SearchResult(request):
     else:
         # If no search query was provided, return an error message.
         return HttpResponse('Please enter a search query')
-    context = {'results': finalresult}
+    genres = Genre.objects.values('name')
+    finalgenre = []
+    for genre in genres:
+        finalgenre.append(genre['name'])
+    context = {'results': finalresult,'genres' : finalgenre}
     return render(request, 'api/results.html', context)
     # Return the search results with streaming information as a JSON response.
 
