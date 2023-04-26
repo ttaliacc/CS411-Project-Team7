@@ -45,12 +45,13 @@ Home
 <div>
     <form action="/search/" method="get">
         <div class="filter">
-            <input type="checkbox" id="genre1" name="genre1" value="action">
-            <label for="vehicle1">action</label><br>
-            <input type="checkbox" id="genre2" name="genre2" value="romance">
-            <label for="vehicle2">romance</label><br>
-            <input type="checkbox" id="genre3" name="genre3" value="cartoon">
-            <label for="vehicle3">cartoon</label><br>
+            {% for m in genres %}
+            <!-- <div class="item"> -->
+
+            <input type="checkbox" id="{{m}}" name="{{m}}" value="{{m}}">
+            <label for="{{m}}">{{m}}</label><br>
+            {% endfor %}
+            <!-- </div> -->
         </div>
         <div class="search searchBar">
             <input type="text" class="form-control" placeholder="Find your movies here..." name="q" id="searchInput">

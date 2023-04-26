@@ -18,10 +18,15 @@ def index(request):
     genresj = genres.json()
     genresjl = genresj['genres']
     random_query = request.session.get('random_query')
+    genres = Genre.objects.values('name')
+    finalgenre = []
+    for genre in genres:
+        finalgenre.append(genre['name'])
+    print(finalgenre)
     if random_query:
-        context = {'genres': genresjl, 'random_query': random_query}
+        context = {'genres': finalgenre, 'random_query': random_query}
     else:
-        context = {genres: genresjl}
+        context = {'genres': finalgenre}
     return render(request, 'api/index.html', context)
 
 
@@ -152,7 +157,7 @@ def SearchResult(request):
     finalgenre = []
     for genre in genres:
         finalgenre.append(genre['name'])
-    context = {'results': finalresult,'genres' : finalgenre}
+    context = {'results': finalresult, 'genres': finalgenre}
     return render(request, 'api/results.html', context)
     # Return the search results with streaming information as a JSON response.
 
