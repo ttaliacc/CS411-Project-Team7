@@ -46,10 +46,10 @@ Home
     <form action="/search/" method="get">
         <div class="filter">
             {% for m in genres %}
-            <div class="checkbox-wrapper">
+            <label class="checkbox-wrapper" for="{{m}}">{{m}}
                 <input type="checkbox" id="{{m}}" name="genres" value="{{m}}">
-                <label for="{{m}}">{{m}}</label>
-            </div>
+                <span class="checkmark"></span>
+            </label>
             {% endfor %}
         </div>
         <div class="search searchBar">
