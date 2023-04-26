@@ -67,7 +67,7 @@ def SearchResult(request):
         print(genrequery)
         genreids = []
         for gen in genrequery:
-            genreids.append(Genre.objects.get(name = gen).gid)
+            genreids.append(Genre.objects.get(name=gen).gid)
         print(genreids)
         with_genres = request.GET.get(
             'with_genres',
@@ -76,8 +76,11 @@ def SearchResult(request):
         with_genres = [int(s) for s in with_genres.split(",")]
         # Insert the movies queried into the database
         finalresult = []
-        if genreids == [] :
-            genreids = [28,12,16,35,80,99,19751,14,36,27,10402,9648,10749,878,10770,53,10752,37]
+        if genreids == []:
+            genreids = [
+                28, 12, 16, 35, 80, 99, 19751, 14, 36, 27, 10402, 9648, 10749,
+                878, 10770, 53, 10752, 37
+            ]
 
         for movie in results:
             # print(movie['genre_ids'])
@@ -125,8 +128,7 @@ def SearchResult(request):
                 finalresult.append(d2)
 
         for result in results:
-            if any(genre_id in result['genre_ids']
-                   for genre_id in with_genres):
+            if any(genre_id in result['genre_ids'] for genre_id in genreids):
                 # Call the Utelly API to get streaming information for each movie.
                 response = requests.get(
                     f'https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?country=us&source_id={result["id"]}&source=tmdb',
@@ -189,7 +191,7 @@ def MovieDetails(request, movie_id):  # Get imdb id using TMDB API
         if 'source_ids' not in result:
             messages.error(request, 'imdb url not found')
             return redirect('index')
-        else: 
+        else:
             imdb_url = result['source_ids']['imdb']['url']
             return redirect(imdb_url)
 
