@@ -7,6 +7,7 @@ from django.core.serializers import serialize
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from random_word import RandomWords
+from django.contrib import messages
 
 #https://github.com/celiao/tmdbsimple
 
@@ -148,6 +149,9 @@ def SearchResult(request):
     else:
         # If no search query was provided, return an error message.
         return HttpResponse('Please enter a search query')
+    if not results:
+        messages.error(request, 'No movies matching query')
+        return redirect('index')
     context = {'results': finalresult}
     return render(request, 'api/results.html', context)
     # Return the search results with streaming information as a JSON response.
@@ -167,8 +171,14 @@ def MovieDetails(request, movie_id):  # Get imdb id using TMDB API
                 'x-rapidapi-key': settings.X_RAPIDAPI_KEY,
                 'x-rapidapi-host': settings.X_RAPIDAPI_HOST
             })
-        imdb_url = response.json()['collection']['source_ids']['imdb']['url']
-        return redirect(imdb_url)
+        result = response.json()['collection']
+        # Source Id is not a key in results['collection']
+        if 'source_ids' not in result:
+            messages.error(request, 'imdb url not found')
+            return redirect('index')
+        else: 
+            imdb_url = result['source_ids']['imdb']['url']
+            return redirect(imdb_url)
 
     return redirect(request.path_info)
 
