@@ -116,6 +116,7 @@
             left: 112px;
             top: 47%;
             right: 112px;
+            border: 7px solid #ffb800;
         }
 
         .functionBar button {
@@ -124,10 +125,6 @@
             font-size: 20px;
             margin: 5px;
             padding: 5px;
-        }
-
-        form {
-            border: 7px solid #ffb800;
         }
 
         .search input[type="text"] {
@@ -140,16 +137,23 @@
             background: #f1f1f1;
         }
 
-        .search .filter {
-            float: left;
-            width: 10%;
-            padding: 10px 15px;
-            background: #ffb800;
-            color: black;
-            font-size: 17px;
-            border: 1px solid grey;
-            border-left: none;
-            cursor: pointer;
+        .filter {
+            display: flex;
+            position: absolute;
+            left: 280px;
+            top: 58%;
+            width: 50%;
+            background-color: #fcfcfc39;
+            border: 5px solid #ffb800;
+            border-radius: 5px;
+            color: #f1f1f1;
+            padding: 20px;
+            flex: auto;
+            font-size: 25px;
+        }
+
+        .filter label {
+            margin-right: 25px;
         }
 
         .search .w-100 {
