@@ -63,6 +63,12 @@ def SearchResult(request):
         # Call the TMDB API to search for movies with query if it exists.
         response = requests.get(url, params=params)
         results = response.json()['results']
+        genrequery = request.GET.getlist('genres')
+        print(genrequery)
+        genreids = []
+        for gen in genrequery:
+            genreids.append(Genre.objects.get(name = gen).gid)
+        print(genreids)
         with_genres = request.GET.get(
             'with_genres',
             '28,12,16,35,80,99,19751,14,36,27,10402,9648,10749,878,10770,53,10752,37'
@@ -70,9 +76,12 @@ def SearchResult(request):
         with_genres = [int(s) for s in with_genres.split(",")]
         # Insert the movies queried into the database
         finalresult = []
+        if genreids == [] :
+            genreids = [28,12,16,35,80,99,19751,14,36,27,10402,9648,10749,878,10770,53,10752,37]
+
         for movie in results:
             # print(movie['genre_ids'])
-            if any(genre_id in movie['genre_ids'] for genre_id in with_genres):
+            if any(genre_id in movie['genre_ids'] for genre_id in genreids):
                 id = movie['id']
                 adult = movie['adult']
                 oglanguage = movie['original_language']
