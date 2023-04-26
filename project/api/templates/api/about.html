@@ -93,8 +93,14 @@
             {% if user.is_authenticated %}
             <li>
             <li style="float: right; margin-right: 20px;">
-                <a href="{% url 'login' %}"><img class="userIcon"
-                        src="https://img.icons8.com/windows/512/user.png" /></i></a>
+                <a href="{% url 'login' %}">
+                    <img class="userIcon" src="https://img.icons8.com/windows/512/user.png" /></i>
+                </a>
+            </li>
+            <li style="float: right; margin-right: 20px;">
+                <a href="{% url 'login' %}">
+                    <p>{{user.socialaccount_set.all.0.extra_data.given_name}}</p>
+                </a>
             </li>
             </li>
             {% else %}

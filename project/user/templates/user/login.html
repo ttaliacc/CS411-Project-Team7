@@ -170,8 +170,14 @@
                 {% if user.is_authenticated %}
                 <li>
                 <li style="float: right; margin-right: 20px;">
-                    <a href="{% url 'login' %}"><img class="userIcon"
-                            src="https://img.icons8.com/windows/512/user.png" /></i></a>
+                    <a href="{% url 'login' %}">
+                        <img class="userIcon" src="https://img.icons8.com/windows/512/user.png" /></i>
+                    </a>
+                </li>
+                <li style="float: right; margin-right: 20px;">
+                    <a href="{% url 'login' %}">
+                        <p>{{user.socialaccount_set.all.0.extra_data.given_name}}</p>
+                    </a>
                 </li>
                 </li>
                 {% else %}
@@ -189,63 +195,6 @@
                     <h1>{{user.socialaccount_set.all.0.extra_data.given_name}}</h1>
                     <a href="logout"><button>Logout {{user.socialaccount_set.all.0.extra_data.email}}</button></a>
                 </div>
-                <!-- <div class="library">
-                    <div>
-                        <h1>My Movies</h1>
-                    </div>
-                    <div class="movies">
-                        <div class="card">
-                            <a href="#">
-                                <div class="moviePoster">
-                                    <img class="movie" src="https://wallpaperaccess.com/full/791294.jpg" />
-                                </div>
-                                <div class="title">
-                                    <h3>title</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card">
-                            <a href="#">
-                                <div class="moviePoster">
-                                    <img class="movie" src="https://wallpaperaccess.com/full/791294.jpg" />
-                                </div>
-                                <div class="title">
-                                    <h3>title</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card">
-                            <a href="#">
-                                <div class="moviePoster">
-                                    <img class="movie" src="https://wallpaperaccess.com/full/791294.jpg" />
-                                </div>
-                                <div class="title">
-                                    <h3>title</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card">
-                            <a href="#">
-                                <div class="moviePoster">
-                                    <img class="movie" src="https://wallpaperaccess.com/full/791294.jpg" />
-                                </div>
-                                <div class="title">
-                                    <h3>title</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card">
-                            <a href="#">
-                                <div class="moviePoster">
-                                    <img class="movie" src="https://wallpaperaccess.com/full/791294.jpg" />
-                                </div>
-                                <div class="title">
-                                    <h3>title</h3>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div> -->
                 {% else %}
                 <div>
                     <div class="login">
