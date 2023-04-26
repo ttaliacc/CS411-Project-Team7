@@ -22,7 +22,6 @@ def index(request):
     finalgenre = []
     for genre in genres:
         finalgenre.append(genre['name'])
-    print(finalgenre)
     if random_query:
         context = {'genres': finalgenre, 'random_query': random_query}
     else:
