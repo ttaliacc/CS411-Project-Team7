@@ -42,11 +42,20 @@ Home
     <button onclick="setRandomQuery()">Random</button>
     <!-- <button onclick="location.href='{ %url 'random_query' %}'">Random</button> need a form?-->
 </div>
-<div class="searchBar">
-    <form action="/search/" method="get" class="search">
-        <button class="filter">Filter</button>
-        <input type="text" class="form-control" placeholder="Find your movies here..." name="q" id="searchInput">
-        <button type="submit" id="searchBt" class="w-100">search</button>
+<div>
+    <form action="/search/" method="get">
+        <div class="filter">
+            {% for m in genres %}
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="{{m}}" name="{{m}}" value="{{m}}">
+                <label for="{{m}}">{{m}}</label>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="search searchBar">
+            <input type="text" class="form-control" placeholder="Find your movies here..." name="q" id="searchInput">
+            <button type="submit" id="searchBt" class="w-100">search</button>
+        </div>
     </form>
 </div>
 
